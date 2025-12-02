@@ -13,5 +13,7 @@ RUN dotnet publish "Learning & Guidance System.csproj" -c Release -o /app/publis
 FROM base AS final
 WORKDIR /app
 
+
+
 COPY --from=build /app/publish .
 ENTRYPOINT ["dotnet", "Learning & Guidance System.dll"]
