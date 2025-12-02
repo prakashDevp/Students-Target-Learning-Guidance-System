@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Engineering CGPA Target Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div>
+                <h1>Engineering CGPA Target Tracker</h1>
+                <p>Plan your path to IITs & MS abroad 🎓<br>Track, analyze and improve your semester performance.</p>
+            </div>
+            <div class="header-tag">
+                <span>Target-based Learning System</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Left pane: forms -->
+        <section class="grid">
+            <section class="panel">
+                <h2>🎯 Create / Select Student</h2>
+                <form id="createStudentForm" class="form">
+                    <div class="form-group">
+                        <label for="name">Student Name</label>
+                        <input type="text" id="name" placeholder="Enter your name" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="department">Department (optional)</label>
+                        <input type="text" id="department" placeholder="CSE / ECE / MECH ..." />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email (optional)</label>
+                        <input type="email" id="email" placeholder="example@college.edu" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="targetCgpa">Target CGPA</label>
+                        <input type="number" step="0.01" min="0" max="10" id="targetCgpa"
+                               placeholder="e.g. 9.50" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="totalSem">Total Semesters</label>
+                        <input type="number" id="totalSem" min="1" max="12" value="8" />
+                        <small>For engineering, usually 8 semesters.</small>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Create Student</button>
+                </form>
+
+                <div class="student-info">
+                    <p>Current Student ID: <span id="studentId" class="badge">-</span></p>
+                </div>
+
+                <hr class="divider">
+
+                <h2>📘 Add / Update Semester Result</h2>
+                <form id="semesterForm" class="form">
+                    <div class="form-group">
+                        <label for="semNumber">Semester Number</label>
+                        <input type="number" id="semNumber" min="1" max="12" placeholder="1 - 8" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="semGpa">Semester GPA</label>
+                        <input type="number" step="0.01" min="0" max="10" id="semGpa"
+                               placeholder="e.g. 8.75" required />
+                    </div>
+
+                    <button type="submit" class="btn-secondary">Save Semester Result</button>
+                </form>
+
+                <div id="messageBox" class="message hidden"></div>
+            </section>
+
+            <!-- Right pane: dashboard -->
+            <section class="panel dashboard-panel">
+                <h2>📊 Dashboard</h2>
+
+                <section class="summary-cards">
+                    <div class="card">
+                        <p class="card-label">Target CGPA</p>
+                        <p class="card-value" id="cardTarget">-</p>
+                    </div>
+                    <div class="card">
+                        <p class="card-label">Current CGPA</p>
+                        <p class="card-value" id="cardCurrent">-</p>
+                    </div>
+                    <div class="card">
+                        <p class="card-label">Completed Semesters</p>
+                        <p class="card-value" id="cardCompleted">-</p>
+                    </div>
+                    <div class="card">
+                        <p class="card-label">Remaining Semesters</p>
+                        <p class="card-value" id="cardRemaining">-</p>
+                    </div>
+                    <div class="card highlight">
+                        <p class="card-label">Required Avg CGPA</p>
+                        <p class="card-value" id="cardRequired">-</p>
+                    </div>
+                </section>
+
+                <section class="charts">
+                    <div class="chart-header">
+                        <h3>Semester GPA Trend</h3>
+                        <span id="statusPill" class="status-pill status-neutral">No Data</span>
+                    </div>
+                    <canvas id="gpaTrendChart"></canvas>
+                </section>
+
+                <section class="suggestion">
+                    <div class="suggestion-header">
+                        <h3>Coach Suggestion</h3>
+                        <span id="statusEmoji" class="emoji">🙂</span>
+                    </div>
+                    <p class="suggestion-status" id="statusText"></p>
+                    <p class="suggestion-text" id="suggestionText"></p>
+                </section>
+
+                <section class="history">
+                    <h3>📅 Semester History</h3>
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Semester</th>
+                                <th>GPA</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyBody">
+                            <!-- Filled by JS -->
+                        </tbody>
+                    </table>
+                </section>
+            </section>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Smart CGPA Target-Based Learning System · Built with ASP.NET Core, PostgreSQL, HTML, CSS, JS</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
